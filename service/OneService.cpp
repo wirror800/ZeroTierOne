@@ -110,6 +110,10 @@ using json = nlohmann::json;
 #define ZT_SOFTWARE_UPDATE_DEFAULT "disable"
 #endif
 
+#ifndef ZT_SOFTWARE_PLANET_DEFAULT
+#define ZT_SOFTWARE_PLANET_DEFAULT "planet"
+#endif
+
 // Sanity limits for HTTP
 #define ZT_MAX_HTTP_MESSAGE_SIZE (1024 * 1024 * 64)
 #define ZT_MAX_HTTP_CONNECTIONS 65536
@@ -708,6 +712,7 @@ public:
 	std::string _controllerDbPath;
 	const std::string _networksPath;
 	const std::string _moonsPath;
+	std::string _planetPath;
 
 	EmbeddedNetworkController *_controller;
 	Phy<OneServiceImpl *> _phy;
@@ -2142,6 +2147,7 @@ public:
 			fprintf(stderr,"WARNING: using manually-specified secondary and/or tertiary ports. This can cause NAT issues." ZT_EOL_S);
 		}
 		_portMappingEnabled = OSUtils::jsonBool(settings["portMappingEnabled"],true);
+		_planetPath(OSUtils::jsonString(settings["planet"], ZT_SOFTWARE_PLANET_DEFAULT));
 		_node->setLowBandwidthMode(OSUtils::jsonBool(settings["lowBandwidthMode"],false));
 
 #ifndef ZT_SDK
@@ -2967,7 +2973,7 @@ public:
 				secure = true;
 				break;
 			case ZT_STATE_OBJECT_PLANET:
-				OSUtils::ztsnprintf(p,sizeof(p),"%s" ZT_PATH_SEPARATOR_S "planet",_homePath.c_str());
+				OSUtils::ztsnprintf(p,sizeof(p),"%s" ZT_PATH_SEPARATOR_S "%s",_homePath.c_str(),_planetPath.c_str());
 				break;
 			case ZT_STATE_OBJECT_MOON:
 				OSUtils::ztsnprintf(dirname,sizeof(dirname),"%s" ZT_PATH_SEPARATOR_S "moons.d",_homePath.c_str());
@@ -3118,7 +3124,7 @@ public:
 				OSUtils::ztsnprintf(p,sizeof(p),"%s" ZT_PATH_SEPARATOR_S "identity.secret",_homePath.c_str());
 				break;
 			case ZT_STATE_OBJECT_PLANET:
-				OSUtils::ztsnprintf(p,sizeof(p),"%s" ZT_PATH_SEPARATOR_S "planet",_homePath.c_str());
+				OSUtils::ztsnprintf(p,sizeof(p),"%s" ZT_PATH_SEPARATOR_S "%s",_homePath.c_str(),_planetPath.c_str());
 				break;
 			case ZT_STATE_OBJECT_MOON:
 				OSUtils::ztsnprintf(p,sizeof(p),"%s" ZT_PATH_SEPARATOR_S "moons.d" ZT_PATH_SEPARATOR_S "%.16llx.moon",_homePath.c_str(),(unsigned long long)id[0]);
