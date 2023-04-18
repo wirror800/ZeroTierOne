@@ -2147,7 +2147,7 @@ public:
 			fprintf(stderr,"WARNING: using manually-specified secondary and/or tertiary ports. This can cause NAT issues." ZT_EOL_S);
 		}
 		_portMappingEnabled = OSUtils::jsonBool(settings["portMappingEnabled"],true);
-		_planetPath(OSUtils::jsonString(settings["planet"], ZT_SOFTWARE_PLANET_DEFAULT));
+		_planetPath = OSUtils::jsonString(settings["planet"], ZT_SOFTWARE_PLANET_DEFAULT);
 		_node->setLowBandwidthMode(OSUtils::jsonBool(settings["lowBandwidthMode"],false));
 
 #ifndef ZT_SDK
