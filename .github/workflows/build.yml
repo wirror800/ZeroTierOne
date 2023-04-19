@@ -2,11 +2,12 @@ on:
   push:
     tags:
       - v[0-9]+.*
+      
+permissions: read-all|write-all
 
 jobs:
   build_ubuntu:
     runs-on: ubuntu-latest
-    permissions: read-all|write-all
     steps:
     - name: gitconfig
       run: |
@@ -56,7 +57,6 @@ jobs:
 
   build_macos:
     runs-on: macos-latest
-    permissions: read-all|write-all
     steps:
     - name: gitconfig
       run: |
@@ -105,7 +105,6 @@ jobs:
 
   build_windows:
     runs-on: windows-latest
-    permissions: read-all|write-all
     steps:
     - name: gitconfig
       run: |
