@@ -134,6 +134,9 @@ jobs:
     - name: msbuild
       run: |
         msbuild windows\ZeroTierOne.sln /m /p:Configuration=Release  /property:Platform=x64 /t:ZeroTierOne:Rebuild
+        # 7z a -tzip "${release_name}.zip" "./windows/Release/*" "./windows/ZeroTierOne/Release/*" "ZeroTier One.msi"
+        # powershell
+        Compress-Archive -CompressionLevel Optimal -Force -Path ".\windows\Release\*.*",".\windows\ZeroTierOne\Release\*.*",".\ZeroTier One.msi" -DestinationPath zerotier-one-x86_64-pc-windows-msvc.zip
     - name: release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
@@ -144,6 +147,6 @@ jobs:
         draft: false
         prerelease: false
         files: |
-          zerotier-one.exe
+          zerotier-one-x86_64-pc-windows-msvc.zip
       env:
         GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
