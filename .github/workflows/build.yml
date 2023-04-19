@@ -44,9 +44,10 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        tag_name: ${{ github.ref }}
-        name: Release ${{ github.ref }}
-        body: TODO New Release.
+        target_commitish: ${{ github.sha }}
+        tag_name: ${{ github.event.inputs.tag_name }}
+        name: ${{ github.event.inputs.release_name }}
+        body: ${{ github.event.inputs.release_notes }}
         draft: false
         prerelease: false
         files: |
@@ -94,9 +95,10 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        tag_name: ${{ github.ref }}
-        name: Release ${{ github.ref }}
-        body: TODO New Release.
+        target_commitish: ${{ github.sha }}
+        tag_name: ${{ github.event.inputs.tag_name }}
+        name: ${{ github.event.inputs.release_name }}
+        body: ${{ github.event.inputs.release_notes }}
         draft: false
         prerelease: false
         files: |
@@ -146,9 +148,10 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        tag_name: ${{ github.ref }}
-        name: Release ${{ github.ref }}
-        body: TODO New Release.
+        target_commitish: ${{ github.sha }}
+        tag_name: ${{ github.event.inputs.tag_name }}
+        name: ${{ github.event.inputs.release_name }}
+        body: ${{ github.event.inputs.release_notes }}
         draft: false
         prerelease: false
         files: |
