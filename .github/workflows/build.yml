@@ -6,8 +6,7 @@ on:
 jobs:
   build_ubuntu:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    permissions: read-all|write-all
     steps:
     - name: gitconfig
       run: |
@@ -57,8 +56,7 @@ jobs:
 
   build_macos:
     runs-on: macos-latest
-    permissions:
-      contents: write
+    permissions: read-all|write-all
     steps:
     - name: gitconfig
       run: |
@@ -107,8 +105,7 @@ jobs:
 
   build_windows:
     runs-on: windows-latest
-    permissions:
-      contents: write
+    permissions: read-all|write-all
     steps:
     - name: gitconfig
       run: |
